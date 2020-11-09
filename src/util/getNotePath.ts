@@ -1,17 +1,24 @@
 import { config } from "../../blog.config";
-import appRootPath from "app-root-path";
 import * as path from "path";
 
-const rootPath = appRootPath.toString();
 const { blogDir } = config;
-const contentsPath = path.resolve(rootPath, "contents");
-const blogDirPath = path.resolve(contentsPath, blogDir);
 
-export const getNotePath = (slug: string) => {
-  const notePath = path.format({
-    dir: blogDirPath,
-    name: slug,
-    ext: ".md",
-  });
-  return notePath;
+export interface FileOrDir {
+  dir: boolean;
+  mdName: string;
+  slug: string;
+}
+
+export const getNotePath = (fileOrDir: FileOrDir) => {
+  if (fileOrDir.dir) {
+    return path.format({
+      dir: path.resolve(config.noteDirPath, fileOrDir.slug),
+      name: fileOrDir.mdName,
+    });
+  } else {
+    return path.format({
+      dir: config.noteDirPath,
+      name: fileOrDir.mdName,
+    });
+  }
 };

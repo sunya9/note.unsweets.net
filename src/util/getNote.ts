@@ -2,8 +2,9 @@ import { promises as fs } from "fs";
 import { exec } from "child_process";
 import { promisify } from "util";
 import { Note } from "../@types/note";
-import { getNotePath } from "./getNotePath";
-
+import { FileOrDir, getNotePath } from "./getNotePath";
+import * as path from "path";
+import { config } from "../../blog.config";
 const execPromise = promisify(exec);
 
 const parseContents = (contents: string): Pick<Note, "body" | "title"> => {
@@ -17,8 +18,23 @@ const parseContents = (contents: string): Pick<Note, "body" | "title"> => {
   };
 };
 
-export const getNote = async (slug: string): Promise<Note> => {
-  const noteAbsPath = getNotePath(slug);
+const getFileOrDir = async (slug: string): Promise<FileOrDir> => {
+  console.log("path", path.resolve(config.noteDirPath, slug));
+  const isDir = !!(await fs
+    .stat(path.resolve(config.noteDirPath, slug))
+    .catch(() => null));
+  // if receive null, it is .md file
+  return {
+    dir: isDir,
+    slug,
+    mdName: isDir ? `index.md` : `${slug}.md`,
+  };
+};
+
+export const getNote = async (name: string): Promise<Note> => {
+  const fileOrDir = await getFileOrDir(name);
+  const noteAbsPath = getNotePath(fileOrDir);
+  console.log(noteAbsPath);
   const commitDateListPromise = execPromise(
     `git log --format=%cd --date=iso ${noteAbsPath}`
   ).then(({ stdout }) => stdout.split("\n"));
@@ -31,7 +47,7 @@ export const getNote = async (slug: string): Promise<Note> => {
   const createdAt = getDate(commitDateList, commitDateList.length - 1);
   const { title, body } = parseContents(contents);
   return {
-    slug,
+    slug: name,
     title,
     body,
     updatedAt,
