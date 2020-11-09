@@ -1,9 +1,10 @@
 import { useRouter } from "next/dist/client/router";
 import Link from "next/link";
-import { config } from "../../blog.config";
+import { useConfigContext } from "./ConfigProvider";
 
 const Title = () => {
   const router = useRouter();
+  const config = useConfigContext();
   if (router.pathname === "/") return <>{config.title()}</>;
   return (
     <Link href="/">
@@ -12,6 +13,7 @@ const Title = () => {
   );
 };
 export const AppHeader = () => {
+  const config = useConfigContext();
   return (
     <header>
       <h1>
