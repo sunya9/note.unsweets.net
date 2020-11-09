@@ -6,11 +6,11 @@ export const AppFooter = () => {
       <hr />
       <div className="center">
         <p>
-          <a href="https://twitter.com/">
+          <a href="https://twitter.com/_X_y_z_">
             <Twitter size="1.2rem" />
           </a>
           &nbsp;&nbsp;
-          <a href="https://twitter.com/sunya9">
+          <a href="https://github.com/sunya9">
             <GitHub size="1.2rem" />
           </a>
         </p>
