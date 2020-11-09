@@ -7,6 +7,7 @@ import { getNote } from "../../util/getNote";
 import { getNotes } from "../../util/getNotes";
 import Markdown from "markdown-to-jsx";
 import { NextLinkIfInternalAnchor } from "../../components/NextLinkIfInternalAnchor";
+import { AppContents } from "../../components/AppContents";
 
 interface Props {
   note: Note;
@@ -22,7 +23,7 @@ export default function NotePage(props: Props) {
   return (
     <AppLayout>
       <AppHeader />
-      <main>
+      <AppContents>
         <article>
           <h1>{note.title}</h1>
           <p>
@@ -46,7 +47,7 @@ export default function NotePage(props: Props) {
             {note.body}
           </Markdown>
         </article>
-      </main>
+      </AppContents>
       <AppFooter />
     </AppLayout>
   );

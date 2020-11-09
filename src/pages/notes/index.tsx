@@ -1,17 +1,17 @@
 import { GetStaticProps } from "next";
-import { Note } from "../@types/note";
-import { AppFooter } from "../components/AppFooter";
-import { AppHeader } from "../components/AppHeader";
-import { AppLayout } from "../components/AppLayout";
-import { getNotes } from "../util/getNotes";
+import { Note } from "../../@types/note";
+import { AppFooter } from "../../components/AppFooter";
+import { AppHeader } from "../../components/AppHeader";
+import { AppLayout } from "../../components/AppLayout";
+import { getNotes } from "../../util/getNotes";
 import Link from "next/link";
-import { AppContents } from "../components/AppContents";
+import { AppContents } from "../../components/AppContents";
 
 interface Props {
   notes: Note[];
 }
 
-export default function Home(props: Props) {
+export default function Notes(props: Props) {
   return (
     <AppLayout>
       <AppHeader />
@@ -24,7 +24,6 @@ export default function Home(props: Props) {
             </li>
           ))}
         </ul>
-        <Link href="/notes">All notes</Link>
       </AppContents>
       <AppFooter />
     </AppLayout>
