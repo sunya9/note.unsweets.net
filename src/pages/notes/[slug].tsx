@@ -5,10 +5,18 @@ import { AppHeader } from "../../components/AppHeader";
 import { AppLayout } from "../../components/AppLayout";
 import { getNote } from "../../util/getNote";
 import { getNotes } from "../../util/getNotes";
+import Markdown from "markdown-to-jsx";
+import { NextLinkIfInternalAnchor } from "../../components/NextLinkIfInternalAnchor";
 
 interface Props {
   note: Note;
 }
+
+const formatDate = (dateMs: number) => {
+  const date = new Date(dateMs);
+  return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
+};
+
 export default function NotePage(props: Props) {
   const { note } = props;
   return (
@@ -16,14 +24,27 @@ export default function NotePage(props: Props) {
       <AppHeader />
       <main>
         <article>
-          <header>
-            <h1>{note.title}</h1>
-            <p>
-              created: <time>{note.createdAt}</time>
-              updated: <time>{note.updatedAt}</time>
-            </p>
-          </header>
-          <div dangerouslySetInnerHTML={{ __html: note.body }} />
+          <h1>{note.title}</h1>
+          <p>
+            published: <time>{formatDate(note.createdAt)}</time>{" "}
+            {note.createdAt !== note.createdAt && (
+              <>
+                updated: <time>{formatDate(note.updatedAt)}</time>
+              </>
+            )}
+          </p>
+
+          <Markdown
+            options={{
+              overrides: {
+                a: {
+                  component: NextLinkIfInternalAnchor,
+                },
+              },
+            }}
+          >
+            {note.body}
+          </Markdown>
         </article>
       </main>
       <AppFooter />
