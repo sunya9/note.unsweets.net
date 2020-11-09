@@ -16,6 +16,7 @@ export default function Home(props: Props) {
     <AppLayout>
       <AppHeader />
       <AppContents>
+        <h1>最近の10件</h1>
         <ul>
           {props.notes.map((note) => (
             <li key={note.slug}>
@@ -24,7 +25,7 @@ export default function Home(props: Props) {
             </li>
           ))}
         </ul>
-        <Link href="/notes">All notes</Link>
+        <Link href="/notes">全てのノートを見る</Link>
       </AppContents>
       <AppFooter />
     </AppLayout>
@@ -32,8 +33,7 @@ export default function Home(props: Props) {
 }
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-  const notes = await getNotes().catch((err) => console.error(err));
-  if (!notes) return { notFound: true };
+  const notes = await getNotes();
   return {
     props: {
       notes: notes.slice(0, 10),
