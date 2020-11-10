@@ -7,7 +7,6 @@ interface Props {
 }
 
 export const NextLinkIfInternalAnchor: React.FC<Props> = (props) => {
-  console.log(props);
   const { href, children, ...rest } = props;
   if (href.startsWith("http")) {
     return (

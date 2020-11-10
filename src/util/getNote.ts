@@ -19,7 +19,6 @@ const parseContents = (contents: string): Pick<Note, "body" | "title"> => {
 };
 
 const getFileOrDir = async (slug: string): Promise<FileOrDir> => {
-  console.log("path", path.resolve(config.noteDirPath, slug));
   const isDir = !!(await fs
     .stat(path.resolve(config.noteDirPath, slug))
     .catch(() => null));
@@ -34,7 +33,6 @@ const getFileOrDir = async (slug: string): Promise<FileOrDir> => {
 export const getNote = async (name: string): Promise<Note> => {
   const fileOrDir = await getFileOrDir(name);
   const noteAbsPath = getNotePath(fileOrDir);
-  console.log(noteAbsPath);
   const commitDateListPromise = execPromise(
     `git log --format=%cd --date=iso ${noteAbsPath}`
   ).then(({ stdout }) => stdout.split("\n"));
