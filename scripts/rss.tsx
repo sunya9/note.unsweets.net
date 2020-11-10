@@ -1,7 +1,10 @@
 import { format } from "date-fns";
 import { promises as fs } from "fs";
+import Markdown from "markdown-to-jsx";
 import mkdirp from "mkdirp";
 import * as path from "path";
+import * as React from "react";
+import ReactDOMServer from "react-dom/server";
 import { config } from "../blog.config";
 import { Note } from "../src/@types/note";
 import { getNotes } from "../src/util/getNotes";
@@ -25,7 +28,7 @@ const formatNote = (note: Note) => `
     <link>${baseUrl}/notes/${note.slug}</link>
     <pubDate>${formatDate(note.createdAt)}</pubDate>
     <description>
-      <![CDATA[${note.body} ]]>
+      <![CDATA[${md2html(note.body)} ]]>
     </description>
   </item>
   `;
@@ -44,5 +47,8 @@ const generateRss = (notes: Note[]) => {
     </channel>
   </rss>`;
 };
+
+const md2html = (markdown: string) =>
+  ReactDOMServer.renderToString(<Markdown>{markdown}</Markdown>);
 
 main();
