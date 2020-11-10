@@ -42,6 +42,7 @@ export const getNote = async (name: string): Promise<Note> => {
     commitDateListPromise,
     readFilePromise,
   ]);
+  console.log("commitDateList", commitDateList);
   const updatedAt = getDate(commitDateList, 0);
   const createdAt = getDate(commitDateList, commitDateList.length - 1);
   const { title, body } = parseContents(contents);
