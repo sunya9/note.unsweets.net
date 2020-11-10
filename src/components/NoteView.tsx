@@ -2,14 +2,14 @@ import Markdown from "markdown-to-jsx";
 import { Note } from "../@types/note";
 import { NextLinkIfInternalAnchor } from "../components/NextLinkIfInternalAnchor";
 import { Pre } from "../components/Pre";
+import { formatDate, formatTime } from "../util/formatDateTime";
 
 interface Props {
   note: Note;
 }
 
-const formatDate = (dateMs: number) => {
-  const date = new Date(dateMs);
-  return `${date.toLocaleDateString("ja")} ${date.toLocaleTimeString("ja")}`;
+const formatDateTime = (dateMs: number) => {
+  return `${formatDate(dateMs)} ${formatTime(dateMs)}`;
 };
 
 export const NoteView = ({ note }: Props) => {
@@ -17,10 +17,10 @@ export const NoteView = ({ note }: Props) => {
     <article>
       <h1>{note.title}</h1>
       <p>
-        published: <time>{formatDate(note.createdAt)}</time>{" "}
+        published: <time>{formatDateTime(note.createdAt)}</time>{" "}
         {note.createdAt !== note.createdAt && (
           <>
-            updated: <time>{formatDate(note.updatedAt)}</time>
+            updated: <time>{formatDateTime(note.updatedAt)}</time>
           </>
         )}
       </p>
