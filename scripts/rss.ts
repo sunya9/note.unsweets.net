@@ -2,9 +2,9 @@ import { format } from "date-fns";
 import { promises as fs } from "fs";
 import mkdirp from "mkdirp";
 import * as path from "path";
-import { config } from "../../blog.config";
-import { Note } from "../@types/note";
-import { getNotes } from "../util/getNotes";
+import { config } from "../blog.config";
+import { Note } from "../src/@types/note";
+import { getNotes } from "../src/util/getNotes";
 
 const baseUrl = process.env.VERCEL_URL;
 

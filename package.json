@@ -6,7 +6,7 @@
     "dev": "next dev",
     "prebuild": "yarn build:rss",
     "build": "next build && next export",
-    "build:rss": "ts-node -P src/scripts/tsconfig.json src/scripts/rss",
+    "build:rss": "ts-node -P ./scripts/tsconfig.json ./scripts/rss",
     "start": "next start"
   },
   "dependencies": {
