@@ -32,8 +32,14 @@ export const NoteView = ({ note }: Props) => {
               component: NextLinkIfInternalAnchor,
             },
             pre: {
-              component(props: { children: { props: { children: string } } }) {
-                return <Pre>{props.children.props.children}</Pre>;
+              component(props: {
+                children: { props: { className?: string; children: string } };
+              }) {
+                return (
+                  <Pre className={props.children.props.className}>
+                    {props.children.props.children}
+                  </Pre>
+                );
               },
             },
           },
