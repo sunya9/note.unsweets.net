@@ -1,14 +1,9 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import { Note } from "../../@types/note";
-import { AppFooter } from "../../components/AppFooter";
-import { AppHeader } from "../../components/AppHeader";
-import { AppLayout } from "../../components/AppLayout";
+import { AppHead } from "../../components/AppHead";
+import { NoteView } from "../../components/NoteView";
 import { getNote } from "../../util/getNote";
 import { getNotes } from "../../util/getNotes";
-import { AppContents } from "../../components/AppContents";
-import Head from "next/head";
-import { useConfigContext } from "../../components/ConfigProvider";
-import { NoteView } from "../../components/NoteView";
 
 interface Props {
   note: Note;
@@ -16,18 +11,11 @@ interface Props {
 
 export default function NotePage(props: Props) {
   const { note } = props;
-  const config = useConfigContext();
   return (
-    <AppLayout>
-      <Head>
-        <title key="title">{config.title(note.title)}</title>
-      </Head>
-      <AppHeader />
-      <AppContents>
-        <NoteView note={note} />
-      </AppContents>
-      <AppFooter />
-    </AppLayout>
+    <>
+      <AppHead title={note.title} />
+      <NoteView note={note} />
+    </>
   );
 }
 

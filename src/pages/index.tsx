@@ -1,11 +1,7 @@
 import { GetStaticProps } from "next";
-import { Note } from "../@types/note";
-import { AppFooter } from "../components/AppFooter";
-import { AppHeader } from "../components/AppHeader";
-import { AppLayout } from "../components/AppLayout";
-import { getNotes } from "../util/getNotes";
 import Link from "next/link";
-import { AppContents } from "../components/AppContents";
+import { Note } from "../@types/note";
+import { getNotes } from "../util/getNotes";
 
 interface Props {
   notes: Note[];
@@ -13,22 +9,18 @@ interface Props {
 
 export default function Home(props: Props) {
   return (
-    <AppLayout>
-      <AppHeader />
-      <AppContents>
-        <h1>最近の10件</h1>
-        <ul>
-          {props.notes.map((note) => (
-            <li key={note.slug}>
-              {new Date(note.createdAt).toLocaleDateString("ja")}{" "}
-              <Link href={`/notes/${note.slug}`}>{note.title}</Link>
-            </li>
-          ))}
-        </ul>
-        <Link href="/notes">全てのノートを見る</Link>
-      </AppContents>
-      <AppFooter />
-    </AppLayout>
+    <>
+      <h1>最近の10件</h1>
+      <ul>
+        {props.notes.map((note) => (
+          <li key={note.slug}>
+            {new Date(note.createdAt).toLocaleDateString("ja")}{" "}
+            <Link href={`/notes/${note.slug}`}>{note.title}</Link>
+          </li>
+        ))}
+      </ul>
+      <Link href="/notes">全てのノートを見る</Link>
+    </>
   );
 }
 
