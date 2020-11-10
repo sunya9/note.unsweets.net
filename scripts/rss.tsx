@@ -9,7 +9,7 @@ import { config } from "../blog.config";
 import { Note } from "../src/@types/note";
 import { getNotes } from "../src/util/getNotes";
 
-const baseUrl = process.env.VERCEL_URL;
+const { baseUrl } = config;
 
 const formatDate = (date: number) =>
   format(date, "E, dd MMM yyyy HH:mm:ss xxxx");

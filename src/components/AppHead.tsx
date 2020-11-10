@@ -21,7 +21,7 @@ export const AppHead: React.FC<Props> = (props) => {
       <link
         key="canonical"
         rel="canonical"
-        href={`${process.env.VERCEL_URL}/${router.asPath}`}
+        href={`${config.baseUrl}/${router.asPath}`}
       />
       <link
         key="rss"

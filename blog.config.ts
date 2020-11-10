@@ -4,6 +4,7 @@ const rootPath = appRootPath.toString();
 
 const title = "あああ";
 const description = "web開発やらAndroidに関するノート。";
+const baseUrl = "https://note.unsweets.net";
 const blogDir = "notes";
 const contentsPath = path.resolve(rootPath, "contents");
 const noteDirPath = path.resolve(contentsPath, blogDir);
@@ -15,4 +16,5 @@ export const config = {
   blogDir,
   noteDirPath,
   contentsPath,
+  baseUrl,
 } as const;
