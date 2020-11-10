@@ -1,10 +1,11 @@
-import { promises as fs } from "fs";
 import { exec } from "child_process";
+import { promises as fs } from "fs";
+import * as path from "path";
 import { promisify } from "util";
+import { config } from "../../blog.config";
 import { Note } from "../@types/note";
 import { FileOrDir, getNotePath } from "./getNotePath";
-import * as path from "path";
-import { config } from "../../blog.config";
+
 const execPromise = promisify(exec);
 
 const parseContents = (contents: string): Pick<Note, "body" | "title"> => {
@@ -35,7 +36,7 @@ export const getNote = async (name: string): Promise<Note> => {
   const noteAbsPath = getNotePath(fileOrDir);
   const commitDateListPromise = execPromise(
     `git log --format=%cd --date=iso ${noteAbsPath}`
-  ).then(({ stdout }) => stdout.split("\n"));
+  ).then(({ stdout }) => stdout.trim().split("\n"));
   const readFilePromise = fs.readFile(noteAbsPath, "utf-8");
   const [commitDateList, contents] = await Promise.all([
     commitDateListPromise,
