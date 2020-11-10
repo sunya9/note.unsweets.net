@@ -15,7 +15,6 @@ const main = async () => {
   const notes = await getNotes();
   const rssXml = generateRss(notes);
   const publicDir = path.resolve(__dirname, "../", "public");
-  console.log(formatDate(notes[0].createdAt));
   await mkdirp(publicDir);
   return fs.writeFile(path.resolve(publicDir, "rss.xml"), rssXml, "utf-8");
 };
