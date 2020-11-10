@@ -1,7 +1,7 @@
 import Markdown from "markdown-to-jsx";
+import { Note } from "../@types/note";
 import { NextLinkIfInternalAnchor } from "../components/NextLinkIfInternalAnchor";
 import { Pre } from "../components/Pre";
-import { Note } from "../@types/note";
 
 interface Props {
   note: Note;
@@ -9,7 +9,7 @@ interface Props {
 
 const formatDate = (dateMs: number) => {
   const date = new Date(dateMs);
-  return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
+  return `${date.toLocaleDateString("ja")} ${date.toLocaleTimeString("ja")}`;
 };
 
 export const NoteView = ({ note }: Props) => {
