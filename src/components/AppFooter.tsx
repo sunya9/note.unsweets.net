@@ -7,11 +7,11 @@ export const AppFooter = () => {
       <div className="center">
         <p>
           <a href="https://twitter.com/_X_y_z_">
-            <Twitter size="1.2rem" />
+            <Twitter />
           </a>
           &nbsp;&nbsp;
           <a href="https://github.com/sunya9">
-            <GitHub size="1.2rem" />
+            <GitHub />
           </a>
         </p>
         <p>Created by _X_y_z_.</p>
