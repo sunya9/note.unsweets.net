@@ -1,14 +1,17 @@
-import { Light } from "react-syntax-highlighter";
-import vs2015 from "react-syntax-highlighter/dist/cjs/styles/hljs/vs2015";
+import { useMemo } from "react";
+import { Prism } from "react-syntax-highlighter";
+import style from "react-syntax-highlighter/dist/cjs/styles/prism/material-light";
 
 interface Props {
   className?: string;
 }
 
 export const Pre: React.FC<Props> = ({ children, className }) => {
+  const lang = useMemo(() => className.replace(/^lang-/, ""), [className]);
+
   return (
-    <Light style={vs2015} language={className}>
+    <Prism style={style} language={lang}>
       {children}
-    </Light>
+    </Prism>
   );
 };

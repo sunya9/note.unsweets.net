@@ -35,11 +35,7 @@ export const NoteView = ({ note }: Props) => {
               component(props: {
                 children: { props: { className?: string; children: string } };
               }) {
-                return (
-                  <Pre className={props.children.props.className}>
-                    {props.children.props.children}
-                  </Pre>
-                );
+                return <Pre {...props.children.props} />;
               },
             },
           },
