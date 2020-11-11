@@ -31,8 +31,8 @@ const getFileOrDir = async (slug: string): Promise<FileOrDir> => {
   };
 };
 
-export const getNote = async (name: string): Promise<Note> => {
-  const fileOrDir = await getFileOrDir(name);
+export const getNote = async (slug: string): Promise<Note> => {
+  const fileOrDir = await getFileOrDir(slug);
   const noteAbsPath = getNotePath(fileOrDir);
   const commitDateListPromise = execPromise(
     `git log --format=%cd --date=iso ${noteAbsPath}`
@@ -46,7 +46,7 @@ export const getNote = async (name: string): Promise<Note> => {
   const createdAt = getDate(commitDateList, commitDateList.length - 1);
   const { title, body } = parseContents(contents);
   return {
-    slug: name,
+    slug,
     title,
     body,
     updatedAt,
